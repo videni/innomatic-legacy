@@ -90,7 +90,7 @@ abstract class ModuleRemoteObject
                 if (($line === "\r\n") || ($line === "\n")) {
                     $headers_parsed = true;
                 } else {
-                    if (ereg('^([.Module/0-9]+) ([0-9]+)', $line, $regs)) {
+                    if (preg_match('/^([.Module/0-9]+) ([0-9]+)/', $line, $regs)) {
                         $response_status = $regs[2];
                     } else {
                         $response_headers[substr($line, 0, strpos($line, ':'))] = trim(substr($line, strpos($line, ':') + 1));

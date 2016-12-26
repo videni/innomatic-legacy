@@ -405,10 +405,10 @@ function get()
 
 function ValidEmail($address)
 {
-        if( ereg( ".*<(.+)>", $address, $regs ) ) {
+        if( preg_match( ".*<(.+)>", $address, $regs ) ) {
                 $address = $regs[1];
         }
-         if(ereg( "^[^@ ]+@([a-zA-Z0-9\-]+\.)+([a-zA-Z0-9\-]{2}|net|com|gov|mil|org|edu|int|biz|info|name)\$",$address) )
+         if(preg_match( "^[^@ ]+@([a-zA-Z0-9\-]+\.)+([a-zA-Z0-9\-]{2}|net|com|gov|mil|org|edu|int|biz|info|name)\$",$address) )
                  return true;
          else
                  return false;

@@ -22,7 +22,7 @@ class InnomaticRequirementsMaintenance extends \Innomatic\Maintenance\Maintenanc
 
         // TODO Update version check
         // PHP version check
-        if (!(ereg("[4-9]\.[1-9]\.[0-9].*", phpversion()) or ereg("[5-9]\.[0-9]\.[0-9].*", phpversion()))) $result = false;
+        if (!(preg_match("/[4-9]\.[1-9]\.[0-9].*", phpversion()) or preg_match("[5-9]\.[0-9]\.[0-9].*/", phpversion()))) $result = false;
 
         // File upload support
         if (!(ini_get('file_uploads') == '1')) $result = false;

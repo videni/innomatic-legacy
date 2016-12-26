@@ -129,7 +129,7 @@ class FileMan
         if ($this->basefile != '') {
             $fp = fopen($this->basefile, 'a');
             if ($fp) {
-                if (!ereg("\n$", $writeStr)) {
+                if (!preg_match("/\n$/", $writeStr)) {
                     $writeStr.= "\n";
                 }
                 fputs($fp, $writeStr);
@@ -152,7 +152,7 @@ class FileMan
         if ($this->basefile != '') {
             $fp = @fopen($this->basefile, 'w');
             if ($fp) {
-                if (!ereg("\n$", $writeStr)) {
+                if (!preg_match("/\n$/", $writeStr)) {
                     $writeStr.= "\n";
                 }
                 fputs($fp, $writeStr);
@@ -208,7 +208,7 @@ class FileMan
         if ($this->basefile != '') {
             $fp = @fopen($this->basefile, 'w');
             if ($fp) {
-                if (!ereg("\n$", $writeStr)) {
+                if (!preg_match("/\n$/", $writeStr)) {
                     $writeStr.= "\n";
                 }
                 foreach ($this->filearray as $lNo => $lineValue) {
@@ -243,7 +243,7 @@ class FileMan
         if ($this->basefile != '') {
             $fp = @fopen($this->basefile, 'w');
             if ($fp) {
-                if (!ereg("\n$", $replaceStr)) {
+                if (!preg_match("/\n$/", $replaceStr)) {
                     $replaceStr.= "\n";
                 }
                 foreach ($this->filearray as $lNo => $lineValue) {
@@ -331,7 +331,7 @@ class FileMan
         $tempArray = array();
         $found = false;
         foreach ($this->filearray as $lineNo => $lineValue) {
-            if (eregi($sStr, $lineValue)) {
+            if (preg_match($sStr, $lineValue)) {
                 $tempArray[$lineNo] = $lineValue;
                 $found = true;
             }

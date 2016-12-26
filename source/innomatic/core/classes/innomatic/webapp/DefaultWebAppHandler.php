@@ -220,7 +220,7 @@ class DefaultWebAppHandler extends WebAppHandler
         $dh = opendir($resource);
         while (($child = readdir($dh)) !== false) {
             // don't accept parent, self, or special protected directories
-            if (preg_match(';^(\.|\.\.|core|setup|setup|\.htaccess)$;i', $child)) {
+            if (preg_match('/;^(\.|\.\.|core|setup|setup|\.htaccess)$;i/', $child)) {
                 continue;
             }
 

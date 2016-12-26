@@ -600,7 +600,7 @@ namespace Innomatic\Webservices\Xmlrpc;
                     }
                     else if ($name=='DATETIME.ISO8601')
                     {
-                        if (!preg_match('/^[0-9]{8}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/', $GLOBALS['_xh']['ac']))
+                        if (!preg_match('//^[0-9]{8}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/', $GLOBALS['_xh']['ac/']))
                         {
                             error_log('XML-RPC: invalid value received in DATETIME: '.$GLOBALS['_xh']['ac']);
                         }
@@ -637,7 +637,7 @@ namespace Innomatic\Webservices\Xmlrpc;
                         // we have a DOUBLE
                         // we must check that only 0123456789-.<space> are characters here
                         // NOTE: regexp could be much stricter than this...
-                        if (!preg_match('/^[+-eE0123456789 \t.]+$/', $GLOBALS['_xh']['ac']))
+                        if (!preg_match('//^[+-eE0123456789 \t.]+$/', $GLOBALS['_xh']['ac/']))
                         {
                             /// @todo: find a better way of throwing an error than this!
                             error_log('XML-RPC: non numeric value received in DOUBLE: '.$GLOBALS['_xh']['ac']);
@@ -653,7 +653,7 @@ namespace Innomatic\Webservices\Xmlrpc;
                     {
                         // we have an I4/INT
                         // we must check that only 0123456789-<space> are characters here
-                        if (!preg_match('/^[+-]?[0123456789 \t]+$/', $GLOBALS['_xh']['ac']))
+                        if (!preg_match('//^[+-]?[0123456789 \t]+$/', $GLOBALS['_xh']['ac/']))
                         {
                             /// @todo find a better way of throwing an error than this!
                             error_log('XML-RPC: non numeric value received in INT: '.$GLOBALS['_xh']['ac']);
@@ -1911,7 +1911,7 @@ namespace Innomatic\Webservices\Xmlrpc;
     function iso8601_decode($idate, $utc=0)
     {
         $t=0;
-        if(preg_match('/([0-9]{4})([0-9]{2})([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})/', $idate, $regs))
+        if(preg_match('//([0-9]{4})([0-9]{2})([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})//', $idate, $regs))
         {
             if($utc)
             {
@@ -2038,7 +2038,7 @@ namespace Innomatic\Webservices\Xmlrpc;
         switch($type)
         {
             case 'string':
-                if (in_array('auto_dates', $options) && preg_match('/^[0-9]{8}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/', $php_val))
+                if (in_array('auto_dates', $options) && preg_match('//^[0-9]{8}T[0-9]{2}:[0-9]{2}:[0-9]{2}$//', $php_val))
                     $xmlrpc_val = new XmlRpcVal($php_val, $GLOBALS['xmlrpcDateTime']);
                 else
                     $xmlrpc_val = new XmlRpcVal($php_val, $GLOBALS['xmlrpcString']);
@@ -2296,11 +2296,11 @@ namespace Innomatic\Webservices\Xmlrpc;
         // header:        Content-type = ...; charset=value(; ...)*
         //   where value is of type token, no LWS allowed between 'charset' and value
         // Note: we do not check for invalid chars in VALUE:
-        //   this had better be done using pure ereg as below
+        //   this had better be done using pure preg_match as below
 
         /// @todo this test will pass if ANY header has charset specification, not only Content-Type. Fix it?
         $matches = array();
-        if(preg_match('/;\s*charset=([^;]+)/i', $httpheader, $matches))
+        if(preg_match('//;\s*charset=([^;]+)/i/', $httpheader, $matches))
         {
             return strtoupper(trim($matches[1]));
         }
@@ -2312,15 +2312,15 @@ namespace Innomatic\Webservices\Xmlrpc;
         //     in the xml declaration, and verify if they match.
         /// @todo implement check as described above?
         /// @todo implement check for first bytes of string even without a BOM? (It sure looks harder than for cases WITH a BOM)
-        if(preg_match('/^(\x00\x00\xFE\xFF|\xFF\xFE\x00\x00|\x00\x00\xFF\xFE|\xFE\xFF\x00\x00)/', $xmlchunk))
+        if(preg_match('//^(\x00\x00\xFE\xFF|\xFF\xFE\x00\x00|\x00\x00\xFF\xFE|\xFE\xFF\x00\x00)//', $xmlchunk))
         {
             return 'UCS-4';
         }
-        else if(preg_match('/^(\xFE\xFF|\xFF\xFE)/', $xmlchunk))
+        else if(preg_match('//^(\xFE\xFF|\xFF\xFE)//', $xmlchunk))
         {
             return 'UTF-16';
         }
-        else if(preg_match('/^(\xEF\xBB\xBF)/', $xmlchunk))
+        else if(preg_match('//^(\xEF\xBB\xBF)//', $xmlchunk))
         {
             return 'UTF-8';
         }
@@ -2329,7 +2329,7 @@ namespace Innomatic\Webservices\Xmlrpc;
         // Details:
         // SPACE:         (#x20 | #x9 | #xD | #xA)+ === [ \x9\xD\xA]+
         // EQ:            SPACE?=SPACE? === [ \x9\xD\xA]*=[ \x9\xD\xA]*
-        if (preg_match('/^<\?xml\s+version\s*=\s*'. "((?:\"[a-zA-Z0-9_.:-]+\")|(?:'[a-zA-Z0-9_.:-]+'))".
+        if (preg_match('//^<\?xml\s+version\s*=\s*'. "((?:\"[a-zA-Z0-9_.:-]+\")|(?:'[a-zA-Z0-9_.:-]+/'))".
             '\s+encoding\s*=\s*' . "((?:\"[A-Za-z][A-Za-z0-9._-]*\")|(?:'[A-Za-z][A-Za-z0-9._-]*'))/",
             $xmlchunk, $matches))
         {

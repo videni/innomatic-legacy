@@ -155,7 +155,7 @@ class DataAccessSourceName
 
         // Get phptype and dbsyntax
         // $str => phptype(dbsyntax)
-        if (preg_match('|^(.+?)\((.*?)\)$|', $str, $arr)) {
+        if (preg_match('/|^(.+?)\((.*?)\)$|/', $str, $arr)) {
             $parsed['phptype']  = $arr[1];
             $parsed['dbsyntax'] = !$arr[2] ? $arr[1] : $arr[2];
         } else {
@@ -183,7 +183,7 @@ class DataAccessSourceName
         // Find protocol and hostspec
 
         // $dasn => proto(proto_opts)/database
-        if (preg_match('|^([^(]+)\((.*?)\)/?(.*?)$|', $dasn, $match)) {
+        if (preg_match('/|^([^(]+)\((.*?)\)/?(.*?)$|/', $dasn, $match)) {
             $proto       = $match[1];
             $proto_opts  = $match[2] ? $match[2] : false;
             $dasn         = $match[3];

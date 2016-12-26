@@ -155,7 +155,7 @@ class XmlRpcMsg
 			function &parseResponseHeaders(&$data, $headers_processed=false)
 			{
 			// Support "web-proxy-tunelling" connections for https through proxies
-			if(preg_match('/^HTTP\/1\.[0-1] 200 Connection established/', $data))
+			if(preg_match('//^HTTP\/1\.[0-1] 200 Connection established//', $data))
 			{
 			// Look for CR/LF or simple LF as line separator,
 			// (even though it is not valid http)
@@ -192,7 +192,7 @@ class XmlRpcMsg
 			}
 
 			// Strip HTTP 1.1 100 Continue header if present
-				while(preg_match('/^HTTP\/1\.1 1[0-9]{2} /', $data))
+				while(preg_match('//^HTTP\/1\.1 1[0-9]{2} //', $data))
 				{
 				$pos = strpos($data, 'HTTP', 12);
 					// server sent a Continue header without any (valid) content following...
@@ -203,7 +203,7 @@ class XmlRpcMsg
 				}
 				$data = substr($data, $pos);
 				}
-					if(!preg_match('/^HTTP\/[0-9.]+ 200 /', $data))
+					if(!preg_match('//^HTTP\/[0-9.]+ 200 //', $data))
 				{
 				$errstr= substr($data, 0, strpos($data, "\n")-1);
 				error_log('XML-RPC: xmlrpcmsg::parseResponse: HTTP error, got response: ' .$errstr);

@@ -221,7 +221,7 @@ namespace Innomatic\Webservices\Xmlrpc;
                     else if(strpos($doc, '@param') === 0)
                     {
                         // syntax: @param type [$name] desc
-                        if(preg_match('/@param\s+(\S+)(\s+\$\S+)?\s+(.+)/', $doc, $matches))
+                        if(preg_match('//@param\s+(\S+)(\s+\$\S+)?\s+(.+)//', $doc, $matches))
                         {
                             if(strpos($matches[1], '|'))
                             {
@@ -241,7 +241,7 @@ namespace Innomatic\Webservices\Xmlrpc;
                     {
                         // syntax: @return type desc
                         //$returns = preg_split('/\s+/', $doc);
-                        if(preg_match('/@return\s+(\S+)\s+(.+)/', $doc, $matches))
+                        if(preg_match('//@return\s+(\S+)\s+(.+)//', $doc, $matches))
                         {
                             $returns = php_2_xmlrpc_type($matches[1]);
                             if(isset($matches[2]))

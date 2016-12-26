@@ -95,7 +95,7 @@ class ConfigFile
         $fm->setFile($this->configFile);
 
         if ($fm->basefile) {
-            $keys = $fm->searchInLine('^'.$keyName.' ');
+            $keys = $fm->searchInLine('/^'.$keyName.' /i');
             if (is_array($keys) and sizeof($keys)) {
                 // Key found
                 //
@@ -108,7 +108,7 @@ class ConfigFile
                 // :KLUDGE: Alex Pagnoni 010716: ugly
                 //This should be replaced by a better regexp
 
-                $keys = $fm->searchInLine('^'.$keyName.'=');
+                $keys = $fm->searchInLine('/^'.$keyName.'=/i');
                 if (is_array($keys) and sizeof($keys)) {
                     // Key found
                     //
